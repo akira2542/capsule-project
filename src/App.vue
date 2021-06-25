@@ -1,18 +1,61 @@
-<template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+<template lang="html">
+  <div v-if="!isMobile" class="flex flex-col justify-center h-screen w-screen">
+    <h1 class="text-center w-screen">โปรดเปิดในโทรศัพท์</h1>
   </div>
-  <router-view />
+  <section v-else>
+    <router-view />
+  </section>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      isMobile: true,
+    };
+  },
+  mounted() {
+    this.checkViewPort();
+    window.addEventListener('resize', this.checkViewPort);
+  },
+  methods: {
+    checkViewPort() {
+      this.isMobile = window.innerWidth < 550;
+    },
+  },
+};
+</script>
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Prompt, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px; /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
 }
 
 #nav {
